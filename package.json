@@ -2,25 +2,23 @@
   "name": "simple-electron-react-app",
   "version": "0.1.0",
   "private": true,
+  "main": "src/Electron.js",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-scripts": "4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently -k \"BROWSER=none yarn start\" \"yarn:electron\"",
+    "electron": "wait-on tcp:3000 && electron .",
+    "dist": "yarn build && electron-builder --linux"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -34,5 +32,42 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "concurrently": "6.4.0",
+    "electron": "16.0.4",
+    "electron-builder": "22.14.5",
+    "electron-is-dev": "2.0.0",
+    "wait-on": "6.0.0"
+  },
+  "build": {
+    "productName": "Simple Electron React App",
+    "appId": "com.example.app",
+    "directories": {
+      "buildResources": "*"
+    },
+    "files": [
+      "*/**/*"
+    ],
+    "win": {
+      "asar": true,
+      "target": "nsis",
+      "icon": "public/icon.ico"
+    },
+    "linux": {
+      "icon" : "public/icon.png",
+      "target": ["deb"]
+    },
+    "nsis": {
+      "installerIcon": "public/icon.ico",
+      "installerHeaderIcon": "public/icon.ico",
+      "deleteAppDataOnUninstall": true
+    }
+  },
+  "author": {
+    "name": "Sylvester Stephenson",
+    "email": "sylvesterstephenson028@gmail.com"
+  },
+  "homepage": "https://github.com/Ouri028/Simple-Electron-React-App",
+  "github": "https://github.com/Ouri028/Simple-Electron-React-App.git"
 }
