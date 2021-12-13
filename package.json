@@ -2,8 +2,10 @@
   "name": "simple-electron-react-app",
   "version": "0.1.0",
   "private": true,
-  "main": "src/Electron.js",
+  "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
+    "electron-is-dev": "^2.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-scripts": "4.0.3"
@@ -14,7 +16,7 @@
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"BROWSER=none yarn start\" \"yarn:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "dist": "yarn build && electron-builder --linux"
+    "dist": "yarn build && electron-builder --win"
   },
   "eslintConfig": {
     "extends": [
@@ -37,17 +39,20 @@
     "concurrently": "6.4.0",
     "electron": "16.0.4",
     "electron-builder": "22.14.5",
-    "electron-is-dev": "2.0.0",
     "wait-on": "6.0.0"
   },
   "build": {
+    "extends": null,
     "productName": "Simple Electron React App",
     "appId": "com.example.app",
     "directories": {
       "buildResources": "*"
     },
     "files": [
-      "*/**/*"
+      "dist/**/*",
+      "build/**/*",
+      "public/*",
+      "package.json"
     ],
     "win": {
       "asar": true,
@@ -55,19 +60,21 @@
       "icon": "public/icon.ico"
     },
     "linux": {
-      "icon" : "public/icon.png",
-      "target": ["deb"]
+      "icon": "public/icon.png",
+      "target": [
+        "deb"
+      ]
     },
     "nsis": {
       "installerIcon": "public/icon.ico",
       "installerHeaderIcon": "public/icon.ico",
-      "deleteAppDataOnUninstall": true
+      "deleteAppDataOnUninstall": true,
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
     }
   },
   "author": {
-    "name": "Sylvester Stephenson",
-    "email": "sylvesterstephenson028@gmail.com"
-  },
-  "homepage": "https://github.com/Ouri028/Simple-Electron-React-App",
-  "github": "https://github.com/Ouri028/Simple-Electron-React-App.git"
+    "name": "Kevin Chou",
+    "email": "kevin81319@gmail.com"
+  }
 }
